@@ -5,10 +5,7 @@
  */
 package conversionfx;
 
-import java.awt.Color;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,7 +15,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -39,7 +35,7 @@ public class ConversionFx extends Application {
         titleL = new Label("Welcome to Number Converter App!");
         titleL.setStyle("-fx-font: 22 arial;");
         descL = new Label("Please enter a number in the Input field and select the"
-                + "input type, then select the type you wish to convert it to, and "
+                + " input type, then select the type you wish to convert it to, and "
                 + "finally press convert.");
         ipL = new Label("Input");
         ipTypeL = new Label("Input Type");
@@ -60,74 +56,103 @@ public class ConversionFx extends Application {
         convertBtn.setStyle("-fx-font: 12 arial; -fx-base: LIGHTGREEN;");
         convertBtn.setOnAction(e->{
             
-            //Decimal Inputs:
-            
-            if(ipCB.getValue()=="Decimal" && opCB.getValue()=="Binary"){
-                String bin = dc.toBin(ipTF.getText());
-                opTF.setText(bin);
+            try{
+                //Decimal Inputs:
+                if(ipCB.getValue()=="Decimal" && opCB.getValue()=="Binary"){
+                    String bin = dc.toBin(ipTF.getText());
+                    opTF.setText(bin);
+                }
+                else if(ipCB.getValue()=="Decimal" && opCB.getValue()=="Octal"){
+                    String oct = dc.toOct(ipTF.getText());
+                    opTF.setText(oct);
+                }
+                else if(ipCB.getValue()=="Decimal" && opCB.getValue()=="Hex"){
+                    String hex = dc.toHex(ipTF.getText());
+                    opTF.setText(hex);
+                }
+                else if(ipCB.getValue()=="Decimal" && opCB.getValue()=="Decimal"){
+                    String dec = Integer.toString(dc.toDec(ipTF.getText()));
+                    opTF.setText(dec);
+                }
+
+                //Binary Inputs:
+                if(ipCB.getValue()=="Binary" && opCB.getValue()=="Binary"){
+                    String bin = ipTF.getText();
+                    String dec = dc.binToD(bin);
+                    bin = dc.toBin(dec);
+                    opTF.setText(bin);
+                }
+                else if(ipCB.getValue()=="Binary" && opCB.getValue()=="Octal"){
+                    String bin = ipTF.getText();
+                    String dec = dc.binToD(bin);
+                    String oct = dc.toOct(dec);
+                    opTF.setText(oct);
+                }
+                else if(ipCB.getValue()=="Binary" && opCB.getValue()=="Decimal"){
+                    String bin = ipTF.getText();
+                    String dec = dc.binToD(bin);
+                    opTF.setText(dec);
+                }
+                else if(ipCB.getValue()=="Binary" && opCB.getValue()=="Hex"){
+                    String bin = ipTF.getText();
+                    String dec = dc.binToD(bin);
+                    String hex = dc.toHex(dec);
+                    opTF.setText(hex);
+                }
+
+                //Octal Inputs:
+                if(ipCB.getValue()=="Octal" && opCB.getValue()=="Binary"){
+                    String oct = ipTF.getText();
+                    String dec = dc.octToD(oct);
+                    String bin = dc.toBin(dec);
+                    opTF.setText(bin);
+                }
+                else if(ipCB.getValue()=="Octal" && opCB.getValue()=="Octal"){
+                    String oct = ipTF.getText();
+                    String dec = dc.octToD(oct);
+                    oct = dc.toOct(dec);
+                    opTF.setText(oct);
+                }
+                else if(ipCB.getValue()=="Octal" && opCB.getValue()=="Decimal"){
+                    String oct = ipTF.getText();
+                    String dec = dc.octToD(oct);
+                    opTF.setText(dec);
+                }
+                else if(ipCB.getValue()=="Octal" && opCB.getValue()=="Hex"){
+                    String oct = ipTF.getText();
+                    String dec = dc.octToD(oct);
+                    String hex = dc.toHex(dec);
+                    opTF.setText(hex);
+                }
+
+                //Hex Inputs:
+                if(ipCB.getValue()=="Hex" && opCB.getValue()=="Binary"){
+                    String hex = ipTF.getText();
+                    String dec = dc.hexToD(hex);
+                    String bin = dc.toBin(dec);
+                    opTF.setText(bin);
+                }
+                else if(ipCB.getValue()=="Hex" && opCB.getValue()=="Octal"){
+                    String hex = ipTF.getText();
+                    String dec = dc.hexToD(hex);
+                    String oct = dc.toOct(dec);
+                    opTF.setText(oct);
+                }
+                else if(ipCB.getValue()=="Hex" && opCB.getValue()=="Decimal"){
+                    String hex = ipTF.getText();
+                    String dec = dc.hexToD(hex);
+                    opTF.setText(dec);
+                }
+                else if(ipCB.getValue()=="Hex" && opCB.getValue()=="Hex"){
+                    String hex = ipTF.getText();
+                    String dec = dc.hexToD(hex);
+                    hex = dc.toHex(dec);
+                    opTF.setText(hex);
+                }
             }
-            else if(ipCB.getValue()=="Decimal" && opCB.getValue()=="Octal"){
-                String oct = dc.toOct(ipTF.getText());
-                opTF.setText(oct);
+            catch(Exception f){
+                opTF.setText("Value not allowed!");
             }
-            else if(ipCB.getValue()=="Decimal" && opCB.getValue()=="Hex"){
-                String hex = dc.toHex(ipTF.getText());
-                opTF.setText(hex);
-            }
-            else if(ipCB.getValue()=="Decimal" && opCB.getValue()=="Decimal"){
-                String dec = ipTF.getText();
-                opTF.setText(dec);
-            }
-            
-            //Binary Inputs:
-            
-            if(ipCB.getValue()=="Binary" && opCB.getValue()=="Binary"){
-                String bin = ipTF.getText();
-                opTF.setText(bin);
-            }
-            else if(ipCB.getValue()=="Binary" && opCB.getValue()=="Octal"){
-                //add functionality
-            }
-            else if(ipCB.getValue()=="Binary" && opCB.getValue()=="Decimal"){
-                //add functionality
-            }
-            else if(ipCB.getValue()=="Binary" && opCB.getValue()=="Hex"){
-                //add functionality
-            }
-            
-            //Octal Inputs:
-            
-            if(ipCB.getValue()=="Octal" && opCB.getValue()=="Binary"){
-                //add functionality
-            }
-            else if(ipCB.getValue()=="Octal" && opCB.getValue()=="Octal"){
-                String oct = ipTF.getText();
-                opTF.setText(oct);
-            }
-            else if(ipCB.getValue()=="Octal" && opCB.getValue()=="Decimal"){
-                //add functionality
-            }
-            else if(ipCB.getValue()=="Octal" && opCB.getValue()=="Hex"){
-                //add functionality
-            }
-            
-            //Hex Inputs:
-            
-            if(ipCB.getValue()=="Hex" && opCB.getValue()=="Binary"){
-                //add functionality
-            }
-            else if(ipCB.getValue()=="Hex" && opCB.getValue()=="Octal"){
-                //add functionality
-            }
-            else if(ipCB.getValue()=="Hex" && opCB.getValue()=="Decimal"){
-                //add functionality
-            }
-            else if(ipCB.getValue()=="Hex" && opCB.getValue()=="Hex"){
-                String hex = ipTF.getText();
-                opTF.setText(hex);
-            }
-            
-            
         });
         
         Button exitBtn = new Button();

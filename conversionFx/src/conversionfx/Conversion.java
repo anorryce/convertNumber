@@ -14,6 +14,6 @@ public interface Conversion {
     String toOct(String num);
     String toBin(String num);
     String binToD(String num);
-    String OctToD(String num);
+    String octToD(String num);
     String hexToD(String num);
 }

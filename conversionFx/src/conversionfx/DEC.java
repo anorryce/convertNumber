@@ -9,14 +9,14 @@ package conversionfx;
  *
  * @author anorryce
  */
-public class DEC {
+public class DEC implements Conversion{
     public int toDec(String decNum){ //converts string decNum to an int decNum
         try{
             Integer.parseInt(decNum); //tries to parse Int
         }  
         catch(NumberFormatException e) { //if the number isn't in the right format, prints this and exits.
             System.out.println("You do not have a number in the right format. Please correct this."); 
-            System.exit(1);
+            //System.exit(1);
         }
         return Integer.parseInt(decNum); //else, if the try was successful, it parseInt as normal.
     }
@@ -62,4 +62,48 @@ public class DEC {
        }
        return binary;
     }
+    public String binToD(String binNum){
+        int binaryNumber = Integer.parseInt(binNum);
+        int decimal = 0;
+        int p = 0;
+        
+        while(true){
+            if(binaryNumber == 0){
+              break;
+            }
+            else {
+                int temp = binaryNumber%10;
+                decimal += temp*Math.pow(2, p);
+                binaryNumber = binaryNumber/10;
+                p++;
+            }
+        }
+        
+        return Integer.toString(decimal);
+    }
+    public String octToD(String octNum){
+        int inputNumber=Integer.parseInt(octNum);
+        int remain=0;
+        int count=0;
+        int decimal=0;
+        while(inputNumber>0){
+            remain=inputNumber%10;
+            decimal=(int) (decimal+remain*Math.pow(8,count));
+            count++;
+            inputNumber=inputNumber/10;
+            }
+        return Integer.toString(decimal);
+    }
+    public String hexToD(String hexNum){
+        String digits = "0123456789ABCDEF";
+        hexNum = hexNum.toUpperCase();
+        int val = 0;
+        for (int i = 0; i < hexNum.length(); i++) {
+            char c = hexNum.charAt(i);
+            int d = digits.indexOf(c);
+            val = 16*val + d;
+        }
+        return Integer.toString(val);
+    }
+    
 }
